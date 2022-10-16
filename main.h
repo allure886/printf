@@ -18,9 +18,9 @@ typedef struct call
 {
 	char t;
 	int (*f)(char *, va_list, int);
-} call_t
+} call_t;
 
-int_print(const char *format, ...);
+int _printf(const char *format, ...);
 int buff_append(char *buff_dest, va_list arg, int buff_count, char type);
 int print_buff(char *buff, unsigned int nbuff);
 int str_len(char *s);
