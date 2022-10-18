@@ -1,5 +1,5 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef MAIN_H_
+#define MAIN_H_
 
 #include <stdarg.h>
 #include <stdlib.h>
@@ -45,6 +45,7 @@ int _print_specifier(va_list, flag_t *, mod_t *);
 
 /* Print numbers in decimal */
 int _print_dec(va_list, flag_t *, mod_t *);
+int _print_binary(va_list, flag_t *, mod_t *);
 int _print_hexa_upper(va_list, flag_t *, mod_t *);
 int _print_hexa_lower(va_list, flag_t *, mod_t *);
 int _print_octal(va_list, flag_t *, mod_t *);
@@ -74,4 +75,4 @@ int get_flags(char elem, flag_t *);
 int get_modifier(char elem, mod_t *);
 void set_width(int width, mod_t *);
 
-#endif 
+#endif /* MAIN_H */
