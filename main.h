@@ -1,40 +1,77 @@
 #ifndef MAIN_H
 #define MAIN_H
-#define INT_BITS (4 * 8)
 
 #include <stdarg.h>
-#include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <limits.h>
+#include <unistd.h>
+#include <string.h>
 
-/**
- * struct call - struct call
- * @t: flag for data type
- * @f: associated function
- */
-
-typedef struct call
+/* Flags struct */
+typedef struct flags
 {
-	char t;
-	int (*f)(char *, va_list, int);
-} call_t;
+	int plus;
+	int space;
+	int hash;
+} flag_t;
 
+/* Modifiers struct */
+typedef struct modifiers
+{
+	int l;
+	int h;
+	int width;
+} mod_t;
+
+/* Identifiers struct */
+typedef struct identifiers
+{
+	char symbol;
+	int (*func)(va_list, flag_t *, mod_t *);
+} id;
+
+/* Writ functions */
+int _putchar(char c);
+int _puts(char *str);
+
+/* Printf */
 int _printf(const char *format, ...);
-int buff_append(char *buff_dest, va_list arg, int buff_count, char type);
-int print_buff(char *buff, unsigned int nbuff);
-int str_len(char *s);
-char *_strcpy(char *dest, char *src);
-int parse_char(char *buff_dest, va_list arg, int buff_count);
-int parse_str(char *buff_dest, va_list arg, int buff_count);
-int parse_int(char *buff_dest, va_list arg, int buff_count);
-int parse_perc(char *buff_dest, va_list arg, int buff_count);
-int parse_bin(char *buff_dest, va_list arg, int buff_count);
-int parse_oct(char *buff_dest, va_list arg, int buff_count);
-int parse_hex(char *buff_dest, va_list arg, int buff_count);
-int parse_X(char *buff_dest, va_list arg, int buff_count);
-int parse_uint(char *buff_dest, va_list arg, int buff_count);
-int parse_rev(char *buff_dest, va_list arg, int buff_count);
-int parse_R13(char *buff_dest, va_list arg, int buff_count);
 
-#endif
+/* Print character functions */
+int _print_char(va_list, flag_t *, mod_t *);
+int _print_str(va_list, flag_t *, mod_t *);
+int _print_specifier(va_list, flag_t *, mod_t *);
+
+/* Print numbers in decimal */
+int _print_dec(va_list, flag_t *, mod_t *);
+int _print_hexa_upper(va_list, flag_t *, mod_t *);
+int _print_hexa_lower(va_list, flag_t *, mod_t *);
+int _print_octal(va_list, flag_t *, mod_t *);
+int _print_unsigned(va_list, flag_t *, mod_t *);
+int _print_address(va_list, flag_t *, mod_t *);
+
+/* Print addresses in hexadecimal format */
+int _print_address(va_list, flag_t *, mod_t *);
+
+/* Print custom */
+int _print_percent(va_list, flag_t *, mod_t *);
+int _print_reverse(va_list, flag_t *, mod_t *);
+int _print_rot13(va_list, flag_t *, mod_t *);
+
+/* Helper functions */
+void print_number(long n);
+int count_digits(long n);
+char *convert(unsigned long num, int base, int lowercase);
+
+/* Function pointer generator */
+int (*get_func(char c))(va_list, flag_t *, mod_t *);
+
+/* Set flags */
+int get_flags(char elem, flag_t *);
+
+/* Sets modifiers */
+int get_modifier(char elem, mod_t *);
+void set_width(int width, mod_t *);
+
+#endif 
