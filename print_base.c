@@ -90,6 +90,11 @@ int _print_hexa_lower(va_list valist, flag_t *f, mod_t *m)
 	if (m->l == 0 && m->h == 1)
 	{
 		snum = (unsigned short)lnum;
+		lnum = snum;
+	}
+	if (m->l == 0 && m->h == 0)
+	{
+		num = (unsigned int)lnum;
 		lnum = num;
 	}
 	str = convert(lnum, 16, 1);
@@ -122,6 +127,12 @@ int _print_octal(va_list valist, flag_t *f, mod_t *m)
 	unsigned short snum = 0;
 	char *str;
 	int spaces, i, count = 0;
+
+	if (m->l == 0 && m->h == 1)
+	{
+		snum = (unsigned int)lnum;
+		lnum = snum;
+	}
 
 	if (m->l == 0 && m->h == 0)
 	{
@@ -158,7 +169,6 @@ int _print_unsigned(va_list valist, flag_t *f, mod_t *m)
 	unsigned short snum = 0;
 	char *str;
 	int spaces, i, count = 0;
-
 	if (m->l == 0 && m->h == 1)
 	{
 		snum = (unsigned short)lnum;
@@ -175,9 +185,11 @@ int _print_unsigned(va_list valist, flag_t *f, mod_t *m)
 	while (str[count] != '\0')
 		count++;
 	if (m->width > count)
+	{
 		spaces = m->width - count;
 		for (i = 0; i < spaces; i++)
 			_putchar(' ');
+	}
 	_puts(str);
 	return (count);
 }
